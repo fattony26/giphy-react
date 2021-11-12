@@ -1,21 +1,22 @@
 import './App.css';
 import React, { Component } from 'react';
+import GifSearch from './GifSearch'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-
+  constructor() {
+    super()
     this.state = {
       baseURL: 'https://api.giphy.com/v1/gifs/search?',
-      apikey: process.env.REACT_APP_KEY,
-      query: '&t=',
-      search: '',
-      giphy: []
+      apikey: 'api_key=gtqq7kTpF3fUNjWdUQ4BfiodryMyzvt8',
+      query: '&q=',
+      gifTitle: '',
+      limit: '&limit=6',
+      searchURL: ''
     }
   }
 
   handleChange = (event) => {
-    this.setState({ 
+    this.setState({
       [event.target.id]: event.target.value
     })
   }
@@ -23,38 +24,39 @@ class App extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.setState({
-      searchURL: this.state.baseURL + this.state.apikey + this.state.query + this.state.search
+      searchURL: this.state.baseURL + this.state.apikey + this.state.query + this.state.gifTitle + this.state.limit
     }, () => {
       fetch(this.state.searchURL)
         .then(res => res.json())
         .then(json => this.setState({
-          giphy: json,
-          search: ''
+          gifs: json,
+          gifTitle: ''
         }))
-        .catch(err => console.error(err));
+        .catch(err => console.log(err))
     })
   }
 
-  render() {
+  render () {
     return (
       <>
-      <form onSubmit={this.handleSubmit}>
-          <label htmlFor='search'>Giphy</label>
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="gifTitle">Gif</label>
+          <br />
           <input
-            type='text'
-            value={this.state.search}
+            id="gifTitle" 
+            type="text"
+            value={this.state.gifTitle}
             onChange={this.handleChange}
           />
           <input
-            type='submit'
-            value='Search'
+            type="submit"
+            value="Search"
           />
         </form>
-        <h1>Giphy</h1>
-        <input type=" text" placeholder="Giphy Search" name="Gif Search"></input>
-          <button type="submit">Search</button>
+
+        {(this.state.gifs) ? <GifSearch gifs={this.state.gifs.data}/> : ''}
       </>
-    )
+    );
   }
 }
 
