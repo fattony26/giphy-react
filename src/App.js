@@ -10,7 +10,7 @@ class App extends Component {
       apikey: 'api_key=WXkLlVr0R35TcFhQ6XfIM69T0f3OWi6u',
       query: '&q=',
       title: '',
-      limit: '&limit=6',
+      limit: '&limit=10',
       searchURL: ''
     }
   }
@@ -26,6 +26,7 @@ class App extends Component {
     this.setState({
       searchURL: this.state.baseURL + this.state.apikey + this.state.query + this.state.title + this.state.limit
     }, () => {
+
       fetch(this.state.searchURL)
         .then(res => res.json())
         .then(json => this.setState({
@@ -36,14 +37,15 @@ class App extends Component {
     })
   }
 
-  render () {
+  render() {
     return (
       <>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="title">Giphy's r' Us</label>
           <br />
+          <br />
           <input
-            id="title" 
+            id="title"
             type="text"
             value={this.state.title}
             onChange={this.handleChange}
@@ -53,8 +55,9 @@ class App extends Component {
             value="Search"
           />
         </form>
-
-        {(this.state.gifs) ? <GifSearch gifs={this.state.gifs.data}/> : ''}
+        <div className='gifs'>
+          {(this.state.gifs) ? <GifSearch gifs={this.state.gifs.data} /> : ''}
+        </div>
       </>
     );
   }
