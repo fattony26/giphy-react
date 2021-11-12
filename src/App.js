@@ -9,7 +9,7 @@ class App extends Component {
       baseURL: 'https://api.giphy.com/v1/gifs/search?',
       apikey: 'api_key=WXkLlVr0R35TcFhQ6XfIM69T0f3OWi6u',
       query: '&q=',
-      gifTitle: '',
+      title: '',
       limit: '&limit=6',
       searchURL: ''
     }
@@ -24,13 +24,13 @@ class App extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.setState({
-      searchURL: this.state.baseURL + this.state.apikey + this.state.query + this.state.gifTitle + this.state.limit
+      searchURL: this.state.baseURL + this.state.apikey + this.state.query + this.state.title + this.state.limit
     }, () => {
       fetch(this.state.searchURL)
         .then(res => res.json())
         .then(json => this.setState({
           gifs: json,
-          gifTitle: ''
+          title: ''
         }))
         .catch(err => console.log(err))
     })
@@ -40,12 +40,12 @@ class App extends Component {
     return (
       <>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="gifTitle">Gif</label>
+          <label htmlFor="title">Giphy's r' Us</label>
           <br />
           <input
-            id="gifTitle" 
+            id="title" 
             type="text"
-            value={this.state.gifTitle}
+            value={this.state.title}
             onChange={this.handleChange}
           />
           <input
