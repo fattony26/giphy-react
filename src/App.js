@@ -7,7 +7,7 @@ class App extends Component {
     super()
     this.state = {
       baseURL: 'https://api.giphy.com/v1/gifs/search?',
-      apikey: 'api_key=gtqq7kTpF3fUNjWdUQ4BfiodryMyzvt8',
+      apikey: 'api_key=WXkLlVr0R35TcFhQ6XfIM69T0f3OWi6u',
       query: '&q=',
       gifTitle: '',
       limit: '&limit=6',
